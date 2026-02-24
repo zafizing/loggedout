@@ -6,6 +6,12 @@ export default function WritePage() {
   const [text, setText] = useState("");
   const [result, setResult] = useState<string | null>(null);
 
+  function cleanSentence(sentence: string) {
+    const trimmed = sentence.trim();
+    if (!trimmed) return "";
+    return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
+  }
+
   function generateTombstone() {
     if (!text.trim()) return;
 
@@ -14,13 +20,13 @@ export default function WritePage() {
       .map((s) => s.trim())
       .filter((s) => s.length > 0);
 
-    const first = sentences[0] || "tried to matter";
-    const second =
-      sentences[1] ||
-      "believed something extraordinary was about to happen";
+    const first = cleanSentence(sentences[0] || "tried to matter");
+    const second = cleanSentence(
+      sentences[1] || "believed something extraordinary was about to happen"
+    );
 
     setResult(
-      `Here lies someone who ${first.toLowerCase()}, ${second.toLowerCase()}, and eventually became another unfinished draft in the archive of forgotten ambition.`
+      `Here lies someone who ${first}, ${second}, and quietly became another unfinished ambition archived by time.`
     );
   }
 
